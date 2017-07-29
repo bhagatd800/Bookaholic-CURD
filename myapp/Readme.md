@@ -24,4 +24,4 @@ http://localhost:3000/deleteStudent/student_id
 
 it deletes the student with perticular student id
 
-if i created a simple interface to make the interaction easire. 
+ i created a simple interface with html and angular to make the interaction easire. 
