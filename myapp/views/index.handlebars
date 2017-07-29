@@ -1,0 +1,63 @@
+
+
+
+<div ng-app="student" ng-controller="studentController">
+
+
+  First name:<br>
+  <input type="text" name="firstname" placeholder="Name" ng-model='data.name'>
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" placeholder="Last Name" ng-model='data.lastName'>
+  <br>
+  Student_ID:<br>
+  <input type="text"  placeholder="Student_id" ng-model='data.studentId'>
+  <br>
+  Phone:<br>
+  <input type="text"  placeholder="Phone" ng-model='data.phone'>
+  <br>
+  Address:<br>
+  <input type="text" name="lastname" placeholder="Address" ng-model='data.address'>
+  
+  <br><br>
+  <input type="submit" value="Submit" ng-click='submit()'>
+
+<br>
+<br>
+Find Student
+<br>
+ StudentId:<br>
+  <input type="text" name="" placeholder="Student ID" ng-model='id.studentId'>
+  
+  <br><br>
+  <input type="submit" value="Submit" ng-click='getData()'>
+
+
+<table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>StudentID</th>
+                <th>Phone</th>
+                <th>Address</th>
+               <th>Action</th>
+
+              </tr>
+            </thead>
+          <tbody>
+              <tr ng-repeat="data in Data">
+                <td>{[{data.name}]}</td>
+                <td>{[{data.lastName}]}</td>
+                <td>{[{data.studentId}]}</td>
+                <td>{[{data.phone}]}</td>
+                <td>{[{data.address}]}</td>
+                <td><button type="button" class="btn btn-danger" ng-click="deleteStudent(data)">Delete</button>
+             
+              </tr>
+              
+
+            </tbody>
+          </table>
+
+</div>
