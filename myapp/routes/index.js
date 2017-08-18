@@ -148,8 +148,8 @@ docx.on ( 'error', function ( err ) {
 
 var pObj = docx.createP ();
 
-for(i=0;i<data.length;i++){
-pObj.addText (i++ +")"+"");
+for(i=1;i<=data.length;i++){
+pObj.addText (i +")"+"");
 pObj.addText ( data[i].question);
 pObj.addLineBreak ();
 pObj.addText ( data[i].option,{ color: '000088' } );
