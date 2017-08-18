@@ -12,10 +12,10 @@ var mongoose = require('mongoose');
 var exphbs = require('express-handlebars');
 
 var app = express();
- mongoose.connect('mongodb://localhost/bookaholic', {
-    useMongoClient: true
+//  mongoose.connect('mongodb://localhost/bookaholic', {
+//     useMongoClient: true
   
-})
+// })
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));

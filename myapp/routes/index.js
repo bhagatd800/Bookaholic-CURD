@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Students=require('../model/students');
+var async = require ( 'async' );
+var officegen = require('officegen');
+var fs = require('fs');
+var path = require('path');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -117,5 +121,62 @@ router.post('/addStudent',function(req,res){
     });
 
     });
+
+
+router.get('/getDoc',function(req,res){
+var data=[{
+"question":"what is your name",
+"option":"Deepak"
+},
+{
+  "question":"where do u belong from",
+  "option":"nepal"
+}
+
+]
+
+var docx = officegen ( {
+	type: 'docx',
+	orientation: 'portrait'
+	
+} );
+
+
+docx.on ( 'error', function ( err ) {
+			console.log ( err );
+		});
+
+var pObj = docx.createP ();
+
+for(i=0;i<data.length;i++){
+pObj.addText (i++ +")"+"");
+pObj.addText ( data[i].question);
+pObj.addLineBreak ();
+pObj.addText ( data[i].option,{ color: '000088' } );
+pObj.addLineBreak ();
+};
+
+var out = fs.createWriteStream ( './public/tmp/out4.docx' );
+
+out.on ( 'error', function ( err ) {
+	console.log ( err );
+});
+
+async.parallel ([
+	function ( done ) {
+		out.on ( 'close', function () {
+			console.log ( 'Finish to create a DOCX file.' );
+			done ( null );
+		});
+		docx.generate ( out );
+	}
+
+], function ( err ) {
+	if ( err ) {
+		console.log ( 'error: ' + err );
+	} 
+});
+
+})
 
 module.exports = router;
