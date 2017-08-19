@@ -125,7 +125,7 @@ router.post('/addStudent',function(req,res){
 
 router.get('/getDoc',function(req,res){
 var data=[{
-"question":"what is your name",
+"question":"what is your name?",
 "option":"Deepak"
 },
 {
@@ -134,7 +134,7 @@ var data=[{
 }
 
 ]
-
+var date=Date.now();
 var docx = officegen ( {
 	type: 'docx',
 	orientation: 'portrait'
@@ -148,15 +148,16 @@ docx.on ( 'error', function ( err ) {
 
 var pObj = docx.createP ();
 
-for(i=1;i<=data.length;i++){
-pObj.addText (i +")"+"");
-pObj.addText ( data[i].question);
-pObj.addLineBreak ();
-pObj.addText ( data[i].option,{ color: '000088' } );
-pObj.addLineBreak ();
+for(i=0;i<data.length;i++){
+  pObj.addText ((i+1) +")"+"");
+  pObj.addText ( data[i].question);
+  pObj.addLineBreak ();
+  pObj.addText ( data[i].option,{ color: '000088' } );
+  pObj.addLineBreak ();
 };
 
-var out = fs.createWriteStream ( './public/tmp/out4.docx' );
+var file='gs://audit-app-819d8.appspot.com/document/'+date+'.docx'
+var out = fs.createWriteStream ( file );
 
 out.on ( 'error', function ( err ) {
 	console.log ( err );
@@ -166,9 +167,12 @@ async.parallel ([
 	function ( done ) {
 		out.on ( 'close', function () {
 			console.log ( 'Finish to create a DOCX file.' );
-			done ( null );
+      done ( null );
+      files='gs://audit-app-819d8.appspot.com/document/'+date+'.docx';
+      res.download(files);
 		});
-		docx.generate ( out );
+   docx.generate ( out );
+    console.log("letter");
 	}
 
 ], function ( err ) {
@@ -176,6 +180,8 @@ async.parallel ([
 		console.log ( 'error: ' + err );
 	} 
 });
+
+
 
 })
 
