@@ -156,7 +156,7 @@ for(i=0;i<data.length;i++){
   pObj.addLineBreak ();
 };
 
-var file='gs://audit-app-819d8.appspot.com/document/'+date+'.docx'
+var file='./public/tmp/'+date+'.docx'
 var out = fs.createWriteStream ( file );
 
 out.on ( 'error', function ( err ) {
@@ -168,7 +168,7 @@ async.parallel ([
 		out.on ( 'close', function () {
 			console.log ( 'Finish to create a DOCX file.' );
       done ( null );
-      files='gs://audit-app-819d8.appspot.com/document/'+date+'.docx';
+      files='./public/tmp/'+date+'.docx';
       res.download(files);
 		});
    docx.generate ( out );
