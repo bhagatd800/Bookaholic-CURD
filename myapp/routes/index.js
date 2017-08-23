@@ -6,6 +6,7 @@ var officegen = require('officegen');
 var fs = require('fs');
 var path = require('path');
 var docx = require('docx');
+//var Math = require('mathjs');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -229,5 +230,75 @@ router.get('/getDocument',function(req,res){
 
 
 })
+
+
+router.get('/getDistance',function(req,res){
+
+
+    // start and end are objects with latitude and longitude
+    
+    //decimals (default 2) is number of decimals in the output
+    
+    //return is distance in kilometers. 
+    
+// if(typeof(Number.prototype.toRad) === "undefined") {
+  
+//       Number.prototype.toRad = function () {
+  
+//           return this * Math.PI / 180;
+  
+//       }
+  
+//   }
+
+    
+        decimals = 2;
+    
+        var earthRadius = 6371; // km
+    
+        lat1 = parseFloat(12.907742577560865);//start latitude
+    
+        lat2 = parseFloat(12.907743577561234); //end latitude
+    
+        lon1 = parseFloat(77.61041992316195); //start longitude
+    
+        lon2 = parseFloat(77.63041992313445);  //end longitude
+    
+    
+    
+        var dLat = ((lat2 - lat1)*(22/7))/180
+    
+        var dLon = ((lon2 - lon1)*(22/7))/180;
+    
+        var lat1 = (lat1*(22/7))/180;
+    
+        var lat2 = (lat2*(22/7))/180;
+
+
+//         var dLat = (lat2 - lat1).toRad();
+        
+//             var dLon = (lon2 - lon1).toRad();
+        
+//             var lat1 = lat1.toRad();
+        
+//             var lat2 = lat2.toRad();
+    
+    
+    
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    
+                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    
+        var d = earthRadius * c;
+    
+        var result= Math.round(d * Math.pow(10, decimals)) / Math.pow(10, decimals);
+//var result =Math.sin(30)
+console.log(result);
+    
+
+
+});
 
 module.exports = router;
